@@ -11,11 +11,18 @@ Page = Struct.new(:name, :content) do
 
 	def self.ingest(json)						
 		json_object = JSON.parse(json)
-		array = []
-		json_object.each do |x|		
+		binding.pry
+			array = []
+		
 
-			array << self.new(x['name'], x['content']) 			
-		end
+			json_object.each do |x|		
+				array << self.new(x['name'], x['content']) 			
+			end
+
+
+
+
 		array
+		
 	end
 end
