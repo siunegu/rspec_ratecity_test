@@ -3,26 +3,28 @@ require 'json'
 
 Page = Struct.new(:name, :content) do 
 	def self.from_map(map)
-		# implement from_map to pass the specifications found in page_spec.rb
 		map_name = map['name'] 
 		map_content = map['content'] 
+
 		self.new(map_name, map_content)
 	end
 
 	def self.ingest(json)						
 		json_object = JSON.parse(json)
-		binding.pry
-			array = []
 		
-
+			array = []
+	
 			json_object.each do |x|		
-				array << self.new(x['name'], x['content']) 			
+				binding.pry
+				if x.include?('links')
+					array << self.new(x['name'], x['content']) 			
+				else
+					self.from_map(name: x['links'][0])
+					self.from_map(name: x['links'][1])
+				end
 			end
 
-
-
-
 		array
-		
+
 	end
 end

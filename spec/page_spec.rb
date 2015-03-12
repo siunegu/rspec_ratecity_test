@@ -57,7 +57,9 @@ describe Page do
         JSON
 
         expect(links_list).to eq(
-          Page.from_map('name' => 'parent', 'links' => [child1, child2]), child1, child2)
+          child1 = Page.from_map('name' => 'child1')
+          child2 = Page.from_map('name' => 'child2')
+          [ Page.from_map('name' => 'parent', 'links' => [child1, child2]), child1, child2 ])          
       end
     end
   end
