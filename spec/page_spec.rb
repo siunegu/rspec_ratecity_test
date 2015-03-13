@@ -28,23 +28,23 @@ describe Page do
   end
   
   describe '.ingest' do    
-    # context 'when json list of objects without links' do
-    #   it 'converts a json list of objects into instances of Page' do
-    #   	pages = Page.ingest <<-JSON 
-    #       [
-    #         {"name": "one", "content": "one content"},
-    #         {"name": "two", "content": "two content"}
-    #       ]
-    #     JSON
+    context 'when json list of objects without links' do
+      it 'converts a json list of objects into instances of Page' do
+      	pages = Page.ingest <<-JSON 
+          [
+            {"name": "one", "content": "one content"},
+            {"name": "two", "content": "two content"}
+          ]
+        JSON
       	
-    #   	expect(pages).to eq(
-    #   		[ 
-    #   			Page.new('one', 'one content'),
-    #   			Page.new('two', 'two content')
-    #       ]
-    #     )
-    #   end
-    # end
+      	expect(pages).to eq(
+      		[ 
+      			Page.new('one', 'one content'),
+      			Page.new('two', 'two content')
+          ]
+        )
+      end
+    end
 
     context 'when json list of objects has links' do
       it 'matches list of links to matching same name on instances of Page' do
@@ -56,9 +56,10 @@ describe Page do
           ]
         JSON
 
+        child1 = Page.from_map('name' => 'child1')
+        child2 = Page.from_map('name' => 'child2')
+        
         expect(links_list).to eq(
-          child1 = Page.from_map('name' => 'child1')
-          child2 = Page.from_map('name' => 'child2')
           [ Page.from_map('name' => 'parent', 'links' => [child1, child2]), child1, child2 ])          
       end
     end
